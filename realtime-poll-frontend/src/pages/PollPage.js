@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import io from 'socket.io-client';
 import { v4 as uuidv4 } from 'uuid';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
+
 const PollPage = () => {
   const { id } = useParams();
   console.log('Poll ID from useParams:', id); // Debug log
@@ -29,7 +31,7 @@ const PollPage = () => {
 
   // Initialize socket connection
   useEffect(() => {
-    const socket = io('http://localhost:3002', {
+    const socket = io(API_URL, {
       transports: ['websocket', 'polling']
     });
 
@@ -69,7 +71,7 @@ const PollPage = () => {
     
     const fetchPoll = async () => {
       try {
-        const response = await fetch(`http://localhost:3002/api/polls/${id}`);
+        const response = await fetch(`${API_URL}/api/polls/${id}`);
         const data = await response.json();
 
         if (data.success) {
@@ -113,7 +115,7 @@ const PollPage = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3002/api/polls/${id}/vote`, {
+      const response = await fetch(`${API_URL}/api/polls/${id}/vote`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

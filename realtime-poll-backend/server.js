@@ -20,15 +20,25 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://applyo-assignment-60gd.onrender.com"
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Socket.IO configuration with CORS
 const io = new Server(server, {
   cors: {
-    origin: "*", // Allow all origins for development
-    methods: ["GET", "POST"]
+    origin: [
+      "http://localhost:3000",
+      "https://applyo-assignment-60gd.onrender.com"
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 

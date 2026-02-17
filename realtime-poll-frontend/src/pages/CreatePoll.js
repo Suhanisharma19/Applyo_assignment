@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
+
 const CreatePoll = () => {
   const navigate = useNavigate();
   const questionInputRef = useRef(null);
@@ -119,7 +121,7 @@ const CreatePoll = () => {
         options: options,
       };
       
-      const res = await axios.post('http://localhost:3002/api/polls', data);
+      const res = await axios.post(`${API_URL}/api/polls`, data);
       const link = `${window.location.origin}/poll/${res.data.pollId}`;
       setShareLink(link);
       
