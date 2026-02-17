@@ -8,9 +8,7 @@ const connectDB = require('./config/db');
 const testRoutes = require('./routes/testRoutes');
 const pollsRoutes = require('./routes/pollsRoutes');
 
-// Export Socket.IO instance for use in controllers
-let ioInstance;
-module.exports = { getIO: () => ioInstance };
+const { setIO } = require('./config/socket');
 
 const app = express();
 const server = http.createServer(app);
@@ -47,7 +45,7 @@ const io = new Server(server, {
 });
 
 // Store the io instance for use in controllers
-ioInstance = io;
+setIO(io);
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {

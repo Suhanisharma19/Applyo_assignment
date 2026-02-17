@@ -1,8 +1,8 @@
 const Poll = require('../models/Poll');
 const Vote = require('../models/Vote');
 
-// Import Socket.IO instance
-const { getIO } = require('../server');
+// Import Socket.IO instance helper
+const { getIO } = require('../config/socket');
 
 // Create a new poll
 const createPoll = async (req, res) => {
