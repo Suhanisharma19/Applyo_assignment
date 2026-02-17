@@ -24,7 +24,8 @@ app.use(cors({
   origin: [
     "http://localhost:3000",
     "https://applyo-assignment-60gd.onrender.com",
-    "https://applyo-assignment-sand.vercel.app"
+    "https://applyo-assignment-sand.vercel.app",
+    "https://applyoassignment-production.up.railway.app"
   ],
   credentials: true
 }));
@@ -37,7 +38,8 @@ const io = new Server(server, {
     origin: [
       "http://localhost:3000",
       "https://applyo-assignment-60gd.onrender.com",
-      "https://applyo-assignment-sand.vercel.app"
+      "https://applyo-assignment-sand.vercel.app",
+      "https://applyoassignment-production.up.railway.app"
     ],
     methods: ["GET", "POST"],
     credentials: true
