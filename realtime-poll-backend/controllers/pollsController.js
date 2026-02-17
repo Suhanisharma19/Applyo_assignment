@@ -263,7 +263,16 @@ const voteOnPollById = async (req, res) => {
     console.log('Sending response:', responseData);
     return res.status(200).json(responseData);
   } catch (error) {
-    console.log('Error caught:', error);
+    console.error('Error caught in voteOnPollById:', error);
+
+    // Duplicate key (unique index) - likely duplicate vote
+    if (error.name === 'MongoServerError' && error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: 'Duplicate vote detected'
+      });
+    }
+
     // Handle cast errors gracefully
     if (error.name === 'CastError') {
       return res.status(404).json({
@@ -271,10 +280,10 @@ const voteOnPollById = async (req, res) => {
         message: 'Poll not found'
       });
     }
-    
+
     return res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message || 'Internal server error'
     });
   }
 };
