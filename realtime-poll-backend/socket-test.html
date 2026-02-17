@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.IO Test</title>
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Socket.IO Test</h1>
+    <div id="status">Connecting...</div>
+    <div id="messages"></div>
+    
+    <script>
+        // Connect to Socket.IO server
+        const socket = io('http://localhost:3000');
+        
+        const statusDiv = document.getElementById('status');
+        const messagesDiv = document.getElementById('messages');
+        
+        // Connection events
+        socket.on('connect', () => {
+            statusDiv.innerHTML = `Connected with ID: ${socket.id}`;
+            console.log('Connected to server');
+            
+            // Test joining a poll room
+            const testPollId = '6991ea3f3d42fc904d541dc3';
+            socket.emit('joinPoll', testPollId);
+            addMessage(`Sent joinPoll event for poll: ${testPollId}`);
+        });
+        
+        socket.on('disconnect', () => {
+            statusDiv.innerHTML = 'Disconnected';
+            console.log('Disconnected from server');
+        });
+        
+        // Join poll confirmation
+        socket.on('joinedPoll', (data) => {
+            console.log('Joined poll response:', data);
+            addMessage(`Server response: ${data.message}`);
+            addMessage(`Joined poll room: ${data.pollId}`);
+        });
+        
+        function addMessage(message) {
+            const msgElement = document.createElement('div');
+            msgElement.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            messagesDiv.appendChild(msgElement);
+        }
+    </script>
+</body>
+</html>
