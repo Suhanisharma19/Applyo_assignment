@@ -4,6 +4,8 @@ import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002';
 
+console.log('API_URL:', API_URL);
+
 const CreatePoll = () => {
   const navigate = useNavigate();
   const questionInputRef = useRef(null);
