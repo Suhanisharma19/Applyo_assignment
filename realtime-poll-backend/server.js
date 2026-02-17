@@ -23,7 +23,8 @@ connectDB();
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://applyo-assignment-60gd.onrender.com"
+    "https://applyo-assignment-60gd.onrender.com",
+    "https://applyo-assignment-sand.vercel.app"
   ],
   credentials: true
 }));
@@ -35,7 +36,8 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:3000",
-      "https://applyo-assignment-60gd.onrender.com"
+      "https://applyo-assignment-60gd.onrender.com",
+      "https://applyo-assignment-sand.vercel.app"
     ],
     methods: ["GET", "POST"],
     credentials: true
